@@ -1,0 +1,43 @@
+{{extend 'layout.html'}}
+<br>
+<div class="container col-11 p-0" >
+    <div class="row align-items-center no-gutters logo-bg">
+        <div class="col-3 text-center">
+            {{ if event_info[0].id in wide_logos: }}
+            <img class="img-fluid w-75" src="{{=event_logo_url}}">
+            {{ else: }}
+            <img class="img-fluid w-50" src="{{=event_logo_url}}">
+            {{pass}}
+        </div>
+        <div class="col-9">
+            <img class="img-fluid" src="{{=course_img_url}}">
+        </div>
+    </div>
+</div>
+<div class="container col-11 table-responsive">
+    <div class="row">
+        <table class='table table-hover pga-table'>
+            <thead class="thead-dark">
+                <tr>
+                    <th>Player</th>
+                    <th>1-10</th>
+                    <th>11-50</th>
+                    <th>11-50</th>
+                    <th>51+</th>
+                    <th>51+</th>
+                </tr>
+            </thead>
+            {{ for x in picks: }}
+            <tr>
+                <td class="pga-table-column">{{=x.user_id.first_name}} {{=x.user_id.last_name}}</td>
+                <td>{{=x.one_name}}</td>
+                <td>{{=x.two_name}}</td>
+                <td>{{=x.three_name}}</td>
+                <td>{{=x.four_name}}</td>
+                <td>{{=x.five_name}}</td>
+            </tr>
+            {{ pass }}
+        </table>
+    </div>
+</div>
+<br>

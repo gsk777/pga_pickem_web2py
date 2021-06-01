@@ -1,0 +1,137 @@
+def index():
+    redirect(URL(c='default', f='index'))
+
+def check_first_pick(form): #checking to see if the first pick selected has already been used by the user this season
+    first_pick = form.vars.pick_one
+    for row in db(db.tier_one_field.id==first_pick).select():
+        player = row.player_name
+    top_ten_picks = current.auth_user.top_ten_picks
+    if player in top_ten_picks:
+        form.errors.pick_one = 'Player already used as top 10 pick this year.'
+    if form.vars.pick_two == form.vars.pick_three:
+        form.errors.pick_three = 'Duplicate pick. Please select another player.'
+    if form.vars.pick_four == form.vars.pick_five:
+        form.errors.pick_five = 'Duplicate pick. Please select another player.'
+
+def submit_picks():
+    form = SQLFORM(db.picks,
+                   showid=False,
+                   labels={'user_id':'User',
+                           'event_id':'Event',
+                           'pick_one':'1-10',
+                           'pick_two':'11-50',
+                           'pick_three':'11-50',
+                           'pick_four':'51+',
+                           'pick_five':'51+'}
+                   )
+    form.vars.user_id=current.auth_user.id
+    form.vars.event_id=(request.args(0))
+    if form.process(onvalidation=check_first_pick).accepted:
+        first_pick = form.vars.pick_one
+        second_pick = form.vars.pick_two
+        third_pick = form.vars.pick_three
+        fourth_pick = form.vars.pick_four
+        fifth_pick = form.vars.pick_five
+        # Adding first pick to top ten picks list of current user
+        for row in db(db.tier_one_field.id==first_pick).select():
+            player = row.player_name
+        db(db.auth_user.id == current.auth_user.id).update(top_ten_picks = current.auth_user.top_ten_picks + [player])
+        # Adding names to picks so they aren't lost when tier lists are refreshed
+        db(db.picks.id == form.vars.id).update(one_name = player)
+        #pick2
+        for row in db(db.tier_two_field.id==second_pick).select():
+            player = row.player_name
+        db(db.picks.id == form.vars.id).update(two_name = player)
+        #pick3
+        for row in db(db.tier_two_field.id==third_pick).select():
+            player = row.player_name
+        db(db.picks.id == form.vars.id).update(three_name = player)
+        #pick4
+        for row in db(db.tier_three_field.id==fourth_pick).select():
+            player = row.player_name
+        db(db.picks.id == form.vars.id).update(four_name = player)
+        #pick5
+        for row in db(db.tier_three_field.id==fifth_pick).select():
+            player = row.player_name
+        db(db.picks.id == form.vars.id).update(five_name = player)
+        redirect(URL('picks_accepted' + '/' + str(form.vars.id)))
+    else:
+        response.flash = 'submit your picks'
+    return dict(form=form)
+
+def picks_accepted():
+    message = 'Thanks!'
+    picks = db(db.picks.id == request.args(0)).select()
+    picks_owner_id = picks[0].user_id
+    if current.auth_user.id != picks_owner_id: # prevents users from accessing other picks
+        redirect(URL(c='default', f='index'))
+    return locals()
+
+@auth.requires_membership('admin')
+def add_points():
+    event = 24   #db.events.id
+    picks = db(db.picks.event_id==event).select() #selects all picks from given event
+    points_dict = {'Brooks Koepka': 125, 'Xander Schauffele': 75, 'Kyounghoon Lee': 75, 'Steve Stricker': 75, 'Jordan Spieth': 75, 'Carlos Ortiz': 75, 'Andrew Putnam': 50,
+                   'Matthew NeSmith': 50, 'Scottie Scheffler': 50, 'James Hahn': 50, 'Louis Oosthuizen': 25, 'J.T. Poston': 25, 'Jon Rahm': 25, 'Harold Varner III': 25,
+                   'Rory McIlroy': 25, 'Justin Thomas': 25, 'Cameron Tringale': 25, 'Nate Lashley': 25, 'Corey Conners': 25, 'Sungjae Im': 25, 'Will Zalatoris': 25,
+                   'Sam Burns': 25, 'Richy Werenski': 25, 'Henrik Norlander': 25, 'Brendon Todd': 25, 'Emiliano Grillo': 25, 'Keegan Bradley': 25, 'Bubba Watson': 25,
+                   'Kevin Streelman': 25, 'Matt Jones': 15, 'Luke List': 15, 'Bo Van Pelt': 15, 'Brendan Steele': 15, 'Mark Hubbard': 15, 'Russell Henley': 15,
+                   'Wyndham Clark': 15, 'Matthew Wolff': 15, 'Kyle Stanley': 15, 'Scott Stallings': 15, 'Bo Hoag': 15, 'Brian Harman': 15, 'Ryan Palmer': 15,
+                   'Zach Johnson': 15, 'Matt Kuchar': 15, 'Hideki Matsuyama': 15, 'Webb Simpson': 15, 'Nick Hardy': 15, 'Grayson Murray': 15, 'Max Homa': 15, 'Siwoo Kim': 15,
+                   'Adam Hadwin': 15, 'Patton Kizzire': 15, 'Russell Knox': 5, 'Billy Horschel': 5, 'Byeong Hun An': 5, 'Robby Shelton IV': 5, 'Sam Ryder': 5, 'Michael Kim': 5,
+                   'Davis Riley': 5, 'Brian Stuard': 5, 'Stewart Cink': 5, 'Lucas Glover': 5, 'Satoshi Kodaira': 5, 'Ted Potter Jr': 5, 'Zhang Xinjun': 5, 'Aaron Wise': 5,
+                   'Doc Redman': 0, 'Denny McCarthy': 0, 'Erik van Rooyen': 0, 'Sepp Straka': 0, 'Daniel Berger': 0, 'Joel Dahmen': 0, 'Beau Hossler': 0, 'Adam Long': 0,
+                   'Tom Hoge': 0, 'Kelly Kraft': 0, 'Nick Taylor': 0, 'Jesse Mueller': 0, 'Brice Garnett': 0, 'Dylan Frittelli': 0, 'Ryan Armour': 0, 'Pat Perez': 0,
+                   'Charley Hoffman': 0, 'Jerry Kelly': 0, 'Austin Cook': 0, 'Talor Gooch': 0, 'Harris English': 0, 'Tom Lewis': 0, 'C.T. Pan': 0, 'Kevin Tway': 0,
+                   'Danny Lee': 0, 'Michael Thompson': 0, 'Jason Day': 0, 'Jason Dufner': 0, 'Rory Sabbatini': 0, 'Cameron Champ': 0, 'Mark Anguiano': 0, 'Adam Schenk': 0,
+                   'Patrick Rodgers': 0, 'John Huh': 0, 'Robert Streb': 0, 'Luke Donald': 0, 'Scott Brown': 0, 'Rickie Fowler': 0, 'Chez Reavie': 0, 'Keith Mitchell': 0,
+                   'Troy Merritt': 0, 'Harry Higgs': 0, 'Gary Woodland': 0, 'Charl Schwartzel': 0, 'J.B. Holmes': 0, 'Jimmy Walker': 0, 'Vaughn Taylor': 0, 'William Gordon': 0,
+                   'Tyler Duncan': 0, 'Chris Kirk': 0, 'Martin Laird': 0, 'Scott Harrington': 0, 'Padraig Harrington': 0, 'Jamie Lovemark': 0, 'William McGirt': 0,
+                   'Camilo Villegas': 0, 'Sunghoon Kang': 0, 'Vincent Whaley': 0, 'Ryan Moore': 0, 'Kevin Stadler': 0, 'Brian Gay': 0, 'Martin Trainer': 0, 'Hunter Mahan': 0,
+                   'Hudson Swafford': 0, 'Sebastian J Munoz': 0, 'John Augenstein': 0}
+    for player in picks:
+        p1 = points_dict[player.one_name]
+        p2 = points_dict[player.two_name]
+        p3 = points_dict[player.three_name]
+        p4 = points_dict[player.four_name]
+        p5 = points_dict[player.five_name]
+        total = p1 + p2 + p3 + p4 + p5       #totals the points of all five picks
+        user = player.user_id
+        db(db.picks.id == player.id).update(one_points = p1,       #Updates the picks with the point totals
+                                            two_points = p2,
+                                            three_points = p3,
+                                            four_points = p4,
+                                            five_points = p5,
+                                            total_points = total)
+        for row in db(db.auth_user.id==user).select(): #looks up the previous total of the user's season points and adds the current event's total
+            weekly_total = total
+            previous_total = row.season_points
+            db(db.auth_user.id==user).update(season_points = (previous_total + weekly_total))
+    redirect(URL(c='admin', f='index', args=['points_added']))
+
+@auth.requires_membership('admin')
+def status():
+    try:
+#---Find events.id of current event accepting picks
+        current_event = db(db.events.ready==True).select()
+        current_event_id = current_event[0].id
+#---Finds all memberships to league group and creates a list of their user_id's
+        league_list = []
+        rows = db(db.auth_membership.group_id==23).select()
+        for x in rows:
+            league_list.append(x.user_id)
+#---Finds all submitted picks and creates a list of their user_id's
+        picks_list = []
+        submitted_picks = db(db.picks.event_id==current_event_id).select()
+        for x in submitted_picks:
+            picks_list.append(x.user_id)
+#---Compares membership list with submitted picks list. Creates list of users missing picks
+        missing_list = []
+        for x in league_list:
+            if x not in picks_list:
+                user = db(db.auth_user.id==x).select()
+                name = (user[0].first_name) + " " + (user[0].last_name)
+                missing_list.append(name)
+        return locals()
+    except IndexError:
+        redirect(URL(c='admin', f='index', args=['picks_status_error']))

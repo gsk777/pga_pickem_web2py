@@ -1,0 +1,35 @@
+@auth.requires_login()
+def view():
+    completed_schedule = db(db.events.completed==True).select(orderby=db.events.event_number)
+    current_event = db(db.events.ready==True).select(orderby=db.events.event_number)
+    playing_event = db(db.events.playing==True).select(orderby=db.events.event_number)
+    upcoming_schedule = db((db.events.completed==False) & (db.events.ready==False) & (db.events.playing==False)).select(orderby=db.events.event_number)
+    return locals()
+
+@auth.requires_login()
+def results():
+    event_info = db(db.events.id == (request.args(0))).select()
+    event_logo_url = URL('static', 'images/' + event_info[0].logo)
+    course_img_url = URL('static', 'images/' + event_info[0].course_img)
+    wide_logos = [21, 24] # list of event ids that have tournaments with wider logos
+    rows = db(db.picks.event_id == (request.args(0))).select(orderby=~db.picks.total_points)
+    n = 1
+    p = -1
+    place = 1
+    winnings = {1:110, 2:70, 3:50, 4:35, 5:20, 6:15}
+    _lastpaid = 6 # last key of winnings dictionary
+    same_as_last = False
+    current_winnings = winnings[1]
+    return locals()
+
+@auth.requires_login()
+def pick_sheet():
+    event_id = (request.args(0))
+    # Selecting all picks for the corresponding event
+    picks = db(db.picks.event_id==event_id).select(orderby=db.picks.one_name)
+    # Selecting event information for corresponding event
+    event_info = db(db.events.id==event_id).select()
+    event_logo_url = URL('static', 'images/' + event_info[0].logo)
+    course_img_url = URL('static', 'images/' + event_info[0].course_img)
+    wide_logos = [21, 24] # list of event ids that have tournaments with wider logos
+    return locals()

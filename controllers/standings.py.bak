@@ -1,0 +1,12 @@
+# -*- coding: utf-8 -*-
+# try something like
+def index():
+    rows = db(db.auth_user.id != None).select(orderby=~db.auth_user.season_points)
+    league_list = []
+    rows2 = db(db.auth_membership.group_id==23).select()
+    for x in rows2:
+        league_list.append(x.user_id)
+    n = 1
+    p = -1
+    place = 1
+    return locals()

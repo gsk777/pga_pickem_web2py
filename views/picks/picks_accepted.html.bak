@@ -1,0 +1,14 @@
+{{extend 'layout.html'}}
+<br>
+<div class="container col-3">
+    <h2 class="headings">PICKS ACCEPTED</h2>
+</div>
+<div class="container col-3 text-dark">
+    <ul class="list-group">
+        <li class="list-group-item">{{=picks[0].one_name}}</li>
+        <li class="list-group-item">{{=picks[0].two_name}}</li>
+        <li class="list-group-item">{{=picks[0].three_name}}</li>
+        <li class="list-group-item">{{=picks[0].four_name}}</li>
+        <li class="list-group-item">{{=picks[0].five_name}}</li>
+    </ul>
+</div>

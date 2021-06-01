@@ -1,0 +1,169 @@
+body {
+    background-color: rgb(68, 85, 102);
+}
+
+div.w2p_flash.alert {
+    background-color: #fcfde7;
+}
+
+.btn-dark {
+    background-color: rgb(20, 24, 28) !important;
+    color: rgb(187, 204, 221) !important;
+}
+
+.btn-dark:hover {
+    background-color: rgba(20, 24, 28, .75) !important;
+    border-color: rgb(187, 204, 221) !important;
+}
+
+.btn-dark:focus {
+    box-shadow: 0 0 0 0.2rem rgba(187, 204, 221, .5) !important;
+}
+
+.bg-dark {
+    background-color: rgb(20, 24, 28) !important;
+    /*background-image: linear-gradient(rgb(20, 24, 28) 20%, rgb(68, 85, 102)) !important;*/
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.navbar-dark, .navbar-nav, .nav-link {
+    color: rgb(187, 204, 221) !important;
+}
+
+.navbar-dark, .navbar-nav, .nav-link:hover {
+    color: rgba(187, 204, 221, .75) !important;
+}
+
+.headings {
+    color: white;
+}
+
+.pga-table {
+    color: white;
+    font-size: .65rem;
+}
+
+.pga-table th {
+    color: rgb(187, 204, 221) !important;
+}
+
+.user-dropdown {
+    background-color: rgb(20, 24, 28);
+}
+
+.dropdown-item {
+    color: rgb(187, 204, 221);
+}
+
+.dropdown-item:hover {
+    background-color: rgb(20, 24, 28);
+    color: rgba(187, 204, 221, .75);
+}
+
+.footer {
+    background-color: rgb(20, 24, 28);
+    color: rgb(187, 204, 221);
+}
+
+#picks_pick_one__row, #picks_pick_two__row, #picks_pick_three__row, #picks_pick_four__row, #picks_pick_five__row {
+    color: white;
+}
+
+.pga-table-column {
+    color: rgb(187, 204, 221);
+    font-weight: bold;
+    background-color: rgb(51, 64, 77);
+}
+
+.carousel-inner {
+    box-shadow: 6px 6px 6px;
+}
+
+.carousel-indicators {
+    bottom: -10px;
+}
+
+.carousel-caption {
+    bottom: -10px;
+}
+
+.slide-caption {
+    color: yellow;
+}
+
+.slide-caption h5 {
+    font-size: .75rem;
+}
+
+.row .profile-form {
+    background-color: rgb(215, 227, 238);
+    margin: 0 auto 5px auto;
+    box-shadow: 0 0 5px rgb(20, 24, 28);
+    border-radius: 5px;
+    padding: 20px;
+}
+
+#web2py_user_form p {
+    color: rgb(230, 0, 0);
+}
+
+.admin-buttons {
+    width: 200px;
+}
+
+.home-buttons {
+    white-space: normal;
+}
+
+.rules-content {
+    background-color: rgb(20, 24, 28);
+    color: rgb(242, 242, 242);
+}
+
+.rules-content p {
+    color: rgb(136, 166, 195);
+    font-weight: bold;
+}
+
+.rules-tabs .active {
+    background-color: rgb(20, 24, 28);
+}
+
+.rules-tabs li a {
+    color: white;
+    font-weight: bold;
+    font-size: .95rem;
+    padding: .5rem .5rem 1rem .5rem;
+}
+
+.logo-bg {
+    background-color: rgb(187, 204, 221);
+}
+
+.results-winner {
+    color: rgb(212, 183, 0);
+}
+
+.results-mc {
+    color: rgb(255, 0, 38);
+}
+
+.results-payout {
+    color: rgb(121, 210, 121);
+}
+
+@media (min-width: 544px) {
+    .slide-caption h5 {font-size: 1rem;}
+    .carousel-caption {bottom: 0px;}
+    .pga-table {font-size: .85rem;}
+}
+
+@media (min-width: 768px) {
+    .rules-tabs li a {font-size: 1.3rem; padding: .5rem 1.5rem 1rem 1.5rem;}
+    .slide-caption h5 {font-size: 1.4rem;}
+    .pga-table {font-size: 1rem;}
+}

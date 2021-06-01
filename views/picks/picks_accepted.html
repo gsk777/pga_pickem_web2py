@@ -1,0 +1,18 @@
+{{extend 'layout.html'}}
+<br>
+<div class="container col-lg-3 col-sm-6 col-10">
+    <h2 class="headings">PICKS ACCEPTED</h2>
+</div>
+<div class="container col-lg-3 col-sm-6 col-10 text-dark">
+    <ul class="list-group">
+        <li class="list-group-item">{{=picks[0].one_name}}</li>
+        <li class="list-group-item">{{=picks[0].two_name}}</li>
+        <li class="list-group-item">{{=picks[0].three_name}}</li>
+        <li class="list-group-item">{{=picks[0].four_name}}</li>
+        <li class="list-group-item">{{=picks[0].five_name}}</li>
+    </ul>
+</div>
+<br>
+<div class="container col-lg-3 col-sm-6 col-10">
+    <a class="btn btn-danger w-100 text-center font-weight-bold" href="https://gsk777.pythonanywhere.com/pga_pickem/picks/delete_picks/{{=request.args(0)}}">Delete and reselect my picks</a>
+</div>

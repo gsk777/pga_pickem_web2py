@@ -1,0 +1,160 @@
+{{extend 'layout.html'}}
+<br>
+<div class="container col-11 p-0">
+    <div class="row align-items-center no-gutters logo-bg">
+        <div class="col-3 text-center">
+            {{ if event_info[0].id in wide_logos: }}
+            <img class="img-fluid w-75" src="{{=event_logo_url}}">
+            {{ else: }}
+            <img class="img-fluid w-50" src="{{=event_logo_url}}">
+            {{pass}}
+        </div>
+        <div class="col-9">
+            <img class="img-fluid" src="{{=course_img_url}}">
+        </div>
+    </div>
+</div>
+
+<div class="container col-11 table-responsive">
+    <div class="row">
+        <table class='table table-hover pga-table'>
+            <thead class="thead-dark">
+                <tr>
+                    <th>Pos</th>
+                    <th>Player</th>
+                    <th>1-10</th>
+                    <th>11-50</th>
+                    <th>11-50</th>
+                    <th>51+</th>
+                    <th>51+</th>
+                    <th>Total</th>
+                    <th></th>
+                </tr>
+            </thead>
+            {{ for x in rows: }}
+            <tr>
+                {{ if x == rows[0]: }} <!--Checks to see if it's the first player-->
+                    {{ if x.total_points > rows[n].total_points: }} <!--If the total points are equal to the next player a "T" is added to placement-->
+                    <td class="pga-table-column">{{=place}}</td>
+                    {{ else: }}
+                    <td class="pga-table-column">T{{=place}}</td>
+                    {{ pass }}
+                {{ elif x == rows[((len(rows))-1)]: }} <!--Checks to see if it's the last player-->
+                    {{ if x.total_points == rows[p].total_points: }} <!--If the total points are equal to the previous player no placement is needed-->
+                    <td class="pga-table-column"></td>
+                    {{ else: }}
+                    <td class="pga-table-column">{{=place}}</td>
+                    {{ pass }}
+                {{ else: }} <!--Any other player is checked against previous and next place to assign placement-->
+                    {{ if x.total_points == rows[p].total_points: }}
+                    <td class="pga-table-column"></td>
+                    {{ elif x.total_points == rows[n].total_points: }}
+                    <td class="pga-table-column">T{{=place}}</td>
+                    {{ else: }}
+                    <td class="pga-table-column">{{=place}}</td>
+                    {{ pass }}
+                {{ pass }}
+
+                {{ if x.user_id.id == current.auth_user.id: }}
+                    <td class="pga-table-column current-user">{{=x.user_id.first_name}} {{=x.user_id.last_name[0]}}</td>
+                {{ else: }}
+                    <td class="pga-table-column">{{=x.user_id.first_name}} {{=x.user_id.last_name[0]}}</td>
+                {{ pass }}
+
+                {{ if x.one_points == 125: }}
+                <td class="results-winner">{{=x.one_name}} ({{=x.one_points}})</td>
+                {{ elif x.one_points == 0: }}
+                <td class="results-mc">{{=x.one_name}} ({{=x.one_points}})</td>
+                {{ else: }}
+                <td>{{=x.one_name}} ({{=x.one_points}})</td>
+                {{ pass }}
+
+                {{ if x.two_points == 125: }}
+                <td class="results-winner">{{=x.two_name}} ({{=x.two_points}})</td>
+                {{ elif x.two_points == 0: }}
+                <td class="results-mc">{{=x.two_name}} ({{=x.two_points}})</td>
+                {{ else: }}
+                <td>{{=x.two_name}} ({{=x.two_points}})</td>
+                {{ pass }}
+
+                {{ if x.three_points == 125: }}
+                <td class="results-winner">{{=x.three_name}} ({{=x.three_points}})</td>
+                {{ elif x.three_points == 0: }}
+                <td class="results-mc">{{=x.three_name}} ({{=x.three_points}})</td>
+                {{ else: }}
+                <td>{{=x.three_name}} ({{=x.three_points}})</td>
+                {{ pass }}
+
+                {{ if x.four_points == 125: }}
+                <td class="results-winner">{{=x.four_name}} ({{=x.four_points}})</td>
+                {{ elif x.four_points == 0: }}
+                <td class="results-mc">{{=x.four_name}} ({{=x.four_points}})</td>
+                {{ else: }}
+                <td>{{=x.four_name}} ({{=x.four_points}})</td>
+                {{ pass }}
+
+                {{ if x.five_points == 125: }}
+                <td class="results-winner">{{=x.five_name}} ({{=x.five_points}})</td>
+                {{ elif x.five_points == 0: }}
+                <td class="results-mc">{{=x.five_name}} ({{=x.five_points}})</td>
+                {{ else: }}
+                <td>{{=x.five_name}} ({{=x.five_points}})</td>
+                {{ pass }}
+
+                <td>{{=x.total_points}}</td>
+
+                {{ if x == rows[0]: }} <!--Checks to see if it's the first entry-->
+                    {{ if x.total_points > rows[n].total_points: }} <!--Checks to see if the first entry is tied with the second-->
+                        <td class="results-payout">{{=current_winnings}}</td>
+                    {{ else: }} <!--Counts how many entries have same total_points-->
+                        {{ count = 1 }}
+                        {{ for row in rows[1:]: }}
+                            {{ if x.total_points == row.total_points: }}
+                                {{ current_winnings += (winnings[(place + count)]) }}
+                                {{ count += 1 }}
+                            {{ else: }}
+                                {{ break }}
+                        {{ pass }}
+                        {{ current_winnings = round(current_winnings/count) }}
+                        <td class="results-payout">{{=current_winnings}}</td><!--Divides first place winnings based on the count-->
+                        {{ same_as_last = True }}<!--Tells next entry that it has the same winnings as this one-->
+                    {{ pass }}
+                {{ elif same_as_last == True: }}
+                    <td class="results-payout">{{=current_winnings}}</td>
+                    {{ if x.total_points > rows[n].total_points: }}
+                        {{ same_as_last = False }}
+                    {{ pass }}
+                {{ else: }}
+                    {{ if _lastpaid >= place: }}<!--Checks to see if the place is still a paid spot-->
+                        {{ current_winnings = winnings[place] }}
+                        {{ if x.total_points > rows[n].total_points: }}<!--Checks to see if the current entry has more total_points than the next entry-->
+                            <td class="results-payout">{{=current_winnings}}</td>
+                        {{ else: }}
+                            {{ count = 1 }}
+                            {{ for row in rows[place:]: }}
+                                {{ if (x.total_points == row.total_points) and (_lastpaid >= (place + count)): }}
+                                    {{ current_winnings += (winnings[(place + count)]) }}
+                                    {{ count += 1 }}
+                                {{ elif (x.total_points == row.total_points) and ((place + count) > _lastpaid): }}
+                                    {{ count += 1 }}
+                                {{ else: }}
+                                    {{ break }}
+                            {{ pass }}
+                            {{ current_winnings = round(current_winnings/count) }}
+                            <td class="results-payout">{{=current_winnings}}</td>
+                            {{ same_as_last = True }}
+                        {{ pass }}
+                    {{ else: }}
+                        <td></td>
+                    {{ pass }}
+                {{ pass }}
+
+                {{ n += 1 }}
+                {{ p += 1 }}
+                {{ place += 1 }}
+            </tr>
+            {{ pass }}
+        </table>
+    </div>
+</div>
+<br>

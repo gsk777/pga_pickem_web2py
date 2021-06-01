@@ -1,0 +1,5 @@
+{{extend 'layout.html'}}
+<h1>This is the picks/test.html template</h1>
+{{=message}}
+{{=player}}
+{{=top_ten_picks}}

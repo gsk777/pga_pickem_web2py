@@ -1,0 +1,4 @@
+{{extend 'layout.html'}}
+<h1>Update Field</h1>
+
+{{=full_field_list}}

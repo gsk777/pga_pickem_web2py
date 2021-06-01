@@ -1,0 +1,2 @@
+<h1>This is the default/test.html template</h1>
+{{=message}}

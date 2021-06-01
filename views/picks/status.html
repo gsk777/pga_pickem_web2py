@@ -1,0 +1,14 @@
+{{extend 'layout.html'}}
+<div class="container col-4">
+    <h2 class="headings">STATUS</h2>
+</div>
+<br/>
+<div class="container col-4 text-white">
+{{ if not missing_list: }}
+    <h3>All picks have been submitted</h3>
+{{ else: }}
+    {{ for x in missing_list: }}
+    <li>{{=x}}</li>
+    {{pass}}
+{{pass}}
+</div>

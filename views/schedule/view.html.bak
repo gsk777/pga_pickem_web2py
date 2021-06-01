@@ -1,0 +1,49 @@
+{{extend 'layout.html'}}
+<br>
+<div class="container col-lg-6 col-md-8 col-11">
+    <h2 class="headings">SCHEDULE</h2>
+</div>
+
+
+<div class="container col-lg-6 col-md-8 col-11">
+<table class='table table-hover pga-table'>
+    <thead class="thead-dark">
+    <tr>
+        <th>Tournament</th>
+        <th>Date</th>
+        <th></th>
+    </tr>
+    </thead>
+    {{ for x in completed_schedule: }}
+    <tr>
+        <td>{{=x.tournament_name}}</td>
+        <td>{{=x.starting_date}}</td>
+        <td><a href="http://127.0.0.1:8000/pga_pickem/schedule/results/{{=x.id}}">Results</a></td>
+    </tr>
+    {{ pass }}
+    
+    {{ for x in current_event: }}
+    <tr>
+        <td>{{=x.tournament_name}}</td>
+        <td>{{=x.starting_date}}</td>
+        <td><a href="http://127.0.0.1:8000/pga_pickem/picks/submit_picks/{{=x.id}}">Submit Picks</a></td>
+    </tr>
+    {{ pass }}
+    
+    {{ for x in playing_event: }}
+    <tr>
+        <td>{{=x.tournament_name}}</td>
+        <td>{{=x.starting_date}}</td>
+        <td><a href="http://127.0.0.1:8000/pga_pickem/schedule/pick_sheet/{{=x.id}}">Picks Sheet</a></td>
+    </tr>
+    {{ pass }}
+    
+    {{ for x in upcoming_schedule: }}
+    <tr>
+        <td>{{=x.tournament_name}}</td>
+        <td>{{=x.starting_date}}</td>
+        <td></td>
+    </tr>
+    {{ pass }}
+</table>
+</div>

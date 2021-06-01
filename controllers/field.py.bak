@@ -1,0 +1,51 @@
+# -*- coding: utf-8 -*-
+# try something like
+
+def index():
+    redirect(URL('display'))
+    return locals()
+
+@auth.requires_membership('admin')
+def display(): # shows currently loaded fields
+    field = db(db.tier_one_field).select(orderby=db.tier_one_field.player_rank)
+    field2 = db(db.tier_two_field).select(orderby=db.tier_two_field.player_rank)
+    field3 = db(db.tier_three_field).select(orderby=db.tier_three_field.player_rank)
+    return locals()
+
+@auth.requires_membership('admin')
+def update(): # updates current field DBs (tier one, tier two, tier three)
+    top_ten = {'Dustin Johnson': '001', 'Jon Rahm': '002', 'Justin Thomas': '003', 'Xander Schauffele': '004', 'Collin Morikawa': '006', 'Rory McIlroy': '007',
+               'Patrick Cantlay': '008', 'Bryson DeChambeau': '010'}
+    for player, rank in top_ten.items():
+        db.tier_one_field.insert(player_name=player, player_rank=rank)
+
+    eleven_to_fifty = {'Brooks Koepka': '012', 'Viktor Hovland': '014', 'Tony Finau': '015', 'Matthew Wolff': '018', 'Matthew Fitzpatrick': '020', 'Hideki Matsuyama': '022',
+                       'Adam Scott': '023', 'Kevin Na': '025', 'Abraham Ancer': '027', 'Joaquin Niemann': '028', 'Jason Kokrak': '030', 'Cameron Smith': '031',
+                       'Marc Leishman': '033', 'Scottie Scheffler': '034', 'Sergio Garcia': '040', 'Gary Woodland': '042', 'Matt Kuchar': '044', 'Carlos Ortiz': '045',
+                       'Brendon Todd': '046', 'Will Zalatoris': '049', 'Bubba Watson': '050'}
+    for player, rank in eleven_to_fifty.items():
+        db.tier_two_field.insert(player_name=player, player_rank=rank)
+
+    fiftyone_and_up = {'Siwoo Kim': '051', 'Mackenzie Hughes': '052', 'Lanto Griffin': '053', 'Kevin Streelman': '056', 'Russell Henley': '057', 'Corey Conners': '059',
+                       'Sebastian J Munoz': '061', 'Jordan Spieth': '062', 'Adam Long': '063', 'Chez Reavie': '065', 'Dylan Frittelli': '066', 'Rickie Fowler': '067',
+                       'J.T. Poston': '068', 'Joel Dahmen': '070', 'Cameron Champ': '074', 'Martin Laird': '084', 'Brendan Steele': '085', 'Adam Hadwin': '086',
+                       'Cameron Tringale': '088', 'Brian Harman': '090', 'Max Homa': '091', 'Talor Gooch': '092', 'Michael Thompson': '094', 'Henrik Norlander': '096',
+                       'Matt Jones': '098', 'Jim Herman': '105', 'Alex Noren': '106', 'Francesco Molinari': '107', 'Robert Streb': '112', 'Sunghoon Kang': '113',
+                       'Tom Hoge': '114', 'Nate Lashley': '115', 'Doc Redman': '121', 'Brandt Snedeker': '122', 'Andrew Landry': '123', 'Maverick McNealy': '126',
+                       'Harry Higgs': '127', 'Lucas Glover': '130', 'Nick Taylor': '131', 'Charles Howell III': '132', 'Harold Varner III': '133', 'Cameron Davis': '136',
+                       'Stewart Cink': '138', 'Richy Werenski': '140', 'Charley Hoffman': '142', 'Kyounghoon Lee': '143', 'Branden Grace': '145', 'Keegan Bradley': '146',
+                       'Sepp Straka': '147', 'Peter Malnati': '148', 'Sam Burns': '150'}
+    for player, rank in fiftyone_and_up.items():
+        db.tier_three_field.insert(player_name=player, player_rank=rank)
+
+    unranked = {'Wyndham Clark': '999', 'Mark Hubbard': '999', 'Matthew NeSmith': '999', 'Emiliano Grillo': '999', 'Luke List': '999', 'Troy Merritt': '999',
+                'Tyler Duncan': '999', 'Scott Piercy': '999', 'Robby Shelton IV': '999', 'Danny Lee': '999', 'C.T. Pan': '999', 'James Hahn': '999', 'Brian Stuard': '999',
+                'Vaughn Taylor': '999', 'Austin Cook': '999', 'Brian Gay': '999', 'Charl Schwartzel': '999', 'Russell Knox': '999', 'Denny McCarthy': '999', 'Pat Perez': '999',
+                'Kyle Stanley': '999', 'Zhang Xinjun': '999', 'Ryan Armour': '999', 'Jim Furyk': '999', 'Padraig Harrington': '999', 'Patrick Rodgers': '999',
+                'Bo Hoag': '999', 'Doug Ghim': '999', 'J.B. Holmes': '999', 'Taehoon Kim': '999', 'Tyler McCumber': '999', 'Scott Harrington': '999', 'Camilo Villegas': '999',
+                'Jimmy Walker': '999', 'Wesley Bryan': '999', 'John Augenstein': '999', 'Willie Mack III': '999', 'Ty Strafaci': '999', 'Angus Flanagan(Am)': '999'}
+    for player, rank in unranked.items():
+        db.tier_three_field.insert(player_name=player, player_rank=rank)
+
+    redirect(URL('display'))
+    return locals()

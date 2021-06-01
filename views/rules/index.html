@@ -1,0 +1,121 @@
+{{extend 'layout.html'}}
+<br>
+<div class="container col-lg-6 col-sm-9 col-12">
+    <div class="row mb-2">
+        <div class="col-12">
+            <h2 class="headings">2021 RULES</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="tabbable tabs-left col-12">
+            <ul class="nav rules-tabs pb-1">
+                <li class="col-xs-4">
+                    <a href="#schedule" data-toggle="tab" class="active show rounded">SCHEDULE</a>
+                </li>
+                <li class="col-xs-4">
+                    <a href="#picks" data-toggle="tab" class="rounded">PICKS</a>
+                </li>
+                <li class="col-xs-4">
+                    <a href="#scoring" data-toggle="tab" class="rounded">SCORING</a>
+                </li>
+            </ul>
+            <div class="tab-content rules-content p-4 rounded">
+                <div class="tab-pane active" id="schedule">
+                    <p>5 Total Events:</p>
+                    <ul>
+                        <li>The Players Championship (March 11-14)</li>
+                        <li>The Masters (April 8-11)</li>
+                        <li>PGA Championship (May 20-23)</li>
+                        <li>US Open (June 17-20)</li>
+                        <li>British Open (July 15-18)</li>
+                    </ul>
+                </div>
+                <div class="tab-pane" id="picks">
+                    <p>Each participant selects <strong><u>FIVE</u></strong> players for each event.</p>
+                    <p>Picks are restricted based on the <a href="http://www.owgr.com/ranking" target="_blank">Official World Golf Ranking (OWGR)</a> as follows:</p>
+                    <ul>
+                        <li>#1-10 OWGR <strong>*Top-10 pick must be different in each of the five events*</strong></li>
+                        <li>#11-50 OWGR</li>
+                        <li>#11-50 OWGR</li>
+                        <li>#51+ OWGR</li>
+                        <li>#51+ OWGR</li>
+                    </ul>
+                    <p>Submitting Picks</p>
+                    <ul>
+                        <li>Picks will be accepted as soon as the field becomes available (usually sometime on Monday evening or Tuesday morning of the event).</li>
+                        <li>Picks are submitted through the event link on the <a href="{{=schedule_url}}">SCHEDULE</a> page.</li>
+                        <li><strong>Picks must be submitted by Midnight PST the night before the event.</strong></li>
+                        <li>In the event that no picks are submitted on time, selections will be randomly generated.</li>
+                    </ul>
+                    <p>Top-10 Picks</p>
+                    <ul>
+                        <li>Must be different in each of the five events.</li>
+                        <li>Previously selected Top-10 picks can be found in your <a href="{{=profile_url}}">PROFILE</a>.</li>
+                        <li>If an already selected Top-10 player drops out of the Top 10, they may be selected again.</li>
+                    </ul>
+                    <p>Withdrawals</p>
+                    <ul>
+                        <li>If a selected player withdraws from the event <strong><u>BEFORE</u></strong> they start their 1st round, a replacement pick can be submitted via email to Graham. If no replacement is submitted, a replacement will be randomly generated.</li>
+                        <li>If a selected player withdraws from the event <strong><u>AFTER</u></strong> they started their 1st round, no replacement pick can be made and they will receive 0 points.</li>
+                    </ul>
+                    <p>Pick Sheet</p>
+                    <ul>
+                        <li>When the tournament begins, a pick sheet with everyone's selections can be viewed via the <a href="{{=schedule_url}}">SCHEDULE</a> page.</li>
+                    </ul>
+                </div>
+                <div class="tab-pane" id="scoring">
+                    <p>Each selection will earn points based on their finishing position:</p>
+                    <div class="col-md-6">
+                        <table class="table table-sm table-bordered text-center">
+                            <thead class="thead-light">
+                                <tr class="d-flex">
+                                    <th class="col-6">Finish</th>
+                                    <th class="col-6">Points</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="d-flex">
+                                    <td class="col-6">Winner</td>
+                                    <td class="col-6">125</td>
+                                </tr>
+                                <tr class="d-flex">
+                                    <td class="col-6">Top 5</td>
+                                    <td class="col-6">75</td>
+                                </tr>
+                                <tr class="d-flex">
+                                    <td class="col-6">Top 10</td>
+                                    <td class="col-6">50</td>
+                                </tr>
+                                <tr class="d-flex">
+                                    <td class="col-6">Top 25</td>
+                                    <td class="col-6">25</td>
+                                </tr>
+                                <tr class="d-flex">
+                                    <td class="col-6">Top 50</td>
+                                    <td class="col-6">15</td>
+                                </tr>
+                                <tr class="d-flex">
+                                    <td class="col-6">Made Cut</td>
+                                    <td class="col-6">5</td>
+                                </tr>
+                                <tr class="d-flex">
+                                    <td class="col-6">Missed Cut</td>
+                                    <td class="col-6">0</td>
+                                </tr>
+                                <tr class="d-flex">
+                                    <td class="col-6">WD or DQ</td>
+                                    <td class="col-6">0</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>Final Results</p>
+                    <ul>
+                        <li>The final results of an event will be available shortly after the event finishes via the <a href="{{=schedule_url}}">SCHEDULE</a> page.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>

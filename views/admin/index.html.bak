@@ -1,0 +1,36 @@
+{{extend 'layout.html'}}
+<div class="container">
+    <div class="row">
+        <div class="col-10">
+            <h2 class="headings">ADMIN MENU</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-10">
+            <a class="btn btn-light mb-2 mr-2 admin-buttons" href="{{=URL(c='field', f='display')}}">DISPLAY FIELD</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-10">
+            <a class="btn btn-light mb-2 mr-2 admin-buttons" href="{{=URL(c='field', f='update')}}">UPDATE FIELD</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-10">
+            <a class="btn btn-light mb-2 mr-2 admin-buttons" href="{{=URL(c='picks', f='status')}}">PICKS STATUS</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-10">
+            <a class="btn btn-light mb-2 mr-2 admin-buttons" href="{{=URL(c='picks', f='add_points')}}">ADD POINTS</a>
+        </div>
+    </div>
+<br>
+{{if request.args(0) == 'picks_status_error': }}
+    <div class="row">
+        <div class="col-10">
+            <p class="text-danger font-weight-bold">No events currently accepting picks</p>
+        </div>
+    </div>
+{{pass}}
+</div>
