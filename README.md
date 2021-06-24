@@ -1,4 +1,6 @@
 # pga_pickem_web2py
+FANTASY GOLF LEAGUE WEB APPLICATION
+
 Built using the web2py Python framework - [web2py](http://www.web2py.com/)
 
 Currently hosted on PythonAnywhere [HERE](http://gsk777.pythonanywhere.com/pga_pickem)
