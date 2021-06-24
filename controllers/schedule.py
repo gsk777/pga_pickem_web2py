@@ -14,23 +14,6 @@ def view():
     playing_event = db(db.events.playing==True).select(orderby=db.events.event_number)
     upcoming_schedule = db((db.events.completed==False) & (db.events.ready==False) & (db.events.playing==False)).select(orderby=db.events.event_number)
     return locals()
-#Testing view for admin only--------------------------------------------------------------
-@auth.requires_membership('admin')
-def adminview():
-    completed_schedule = db(db.events.completed==True).select(orderby=db.events.event_number)
-    current_event = db(db.events.ready==True).select(orderby=db.events.event_number)
-    if len(current_event) > 0:
-        current_event_id = current_event[0].id
-        submitted_picks = db(db.picks.event_id==current_event_id).select()
-        user_submitted = []
-        for picks in submitted_picks:
-            user_submitted.append(picks.user_id)
-        if current.auth_user.id in user_submitted:
-            user_picks = db((db.picks.event_id==current_event_id) & (db.picks.user_id==current.auth_user.id)).select()
-            user_picks_id = user_picks[0].id
-    playing_event = db(db.events.playing==True).select(orderby=db.events.event_number)
-    upcoming_schedule = db((db.events.completed==False) & (db.events.ready==False) & (db.events.playing==False)).select(orderby=db.events.event_number)
-    return locals()
 
 @auth.requires_login()
 def results():
