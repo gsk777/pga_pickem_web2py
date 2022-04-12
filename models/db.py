@@ -57,7 +57,7 @@ else:
 # by default give a view/generic.extension to all actions from localhost
 # none otherwise. a pattern can be 'controller/function.extension'
 # -------------------------------------------------------------------------
-response.generic_patterns = [] 
+response.generic_patterns = []
 if request.is_local and not configuration.get('app.production'):
     response.generic_patterns.append('*')
 
@@ -96,8 +96,11 @@ current.auth_user = auth.user
 # create all tables needed by auth, maybe add a list of extra fields
 # -------------------------------------------------------------------------
 auth.settings.extra_fields['auth_user'] = [Field('top_ten_picks', type='list:string', writable=False, readable=False, default=["Default"]),
+                                           Field('is_active', type='boolean', writable=False, readable=False),
                                            Field('season_points', type='integer', writable=False, readable=False, default=0),
-                                           Field('league', type='integer', writable=False, readable=False)]
+                                           Field('league', type='integer', writable=False, readable=False),
+                                           Field('twenty_one_points', type='integer', writable=False, readable=False, default=0),
+                                           Field('twenty_one_placement', type='string', writable=False, readable=False)]
 auth.define_tables(username=False, signature=False)
 
 # -------------------------------------------------------------------------
@@ -122,8 +125,8 @@ auth.settings.reset_password_requires_verification = True
 auth.settings.expiration = 3600
 auth.settings.remember_me_form = False
 
-# -------------------------------------------------------------------------  
-# read more at http://dev.w3.org/html5/markup/meta.name.html               
+# -------------------------------------------------------------------------
+# read more at http://dev.w3.org/html5/markup/meta.name.html
 # -------------------------------------------------------------------------
 response.meta.author = configuration.get('app.author')
 response.meta.description = configuration.get('app.description')
@@ -132,7 +135,7 @@ response.meta.generator = configuration.get('app.generator')
 response.show_toolbar = configuration.get('app.toolbar')
 
 # -------------------------------------------------------------------------
-# your http://google.com/analytics id                                      
+# your http://google.com/analytics id
 # -------------------------------------------------------------------------
 response.google_analytics_id = configuration.get('google.analytics_id')
 
