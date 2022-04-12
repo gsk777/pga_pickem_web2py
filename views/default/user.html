@@ -1,6 +1,6 @@
 {{extend 'layout.html'}}
 
-<div class="row"> 
+<div class="row">
   <div id="web2py_user_form" class="container col-lg-6 profile-form">
     <h2>
       {{=T('Sign Up') if request.args(0) == 'register' else T('Log In') if request.args(0) == 'login' else T(request.args(0).replace('_',' ').title())}}
@@ -22,9 +22,10 @@
 
 {{if request.args(0)=='profile':}}
 <br>
+<!--TOP TEN PICKS-->
 <div class="row">
     <div class="container col-lg-6 profile-form">
-        <h2>Top-10 Picks (2021)</h2>
+        <h2>Top-10 Picks (2022)</h2>
         <ul>
             {{for x in current.auth_user.top_ten_picks[1:]:}}
             <li>{{=x}}</li>
@@ -32,6 +33,29 @@
         </ul>
     </div>
 </div>
+<br>
+<!--PAST RESULTS-->
+<div class="row">
+    <div class="container col-lg-6 profile-form">
+        <h2>Past Results</h2>
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th>YEAR</th>
+                    <th>RANK</th>
+                </tr>
+            </thead>
+            {{ if len(current.auth_user.twenty_one_placement) > 0: }}
+            <tr>
+                <td>2021</td>
+                <td>{{=current.auth_user.twenty_one_placement}}</td>
+            </tr>
+            {{pass}}
+        </table>
+    </div>
+
+</div>
+<br>
 {{pass}}
 
 

@@ -93,37 +93,21 @@ def delete_picks():
 
 @auth.requires_membership('admin')
 def add_points():
-    event = 29   #db.events.id
+    event = 33   #db.events.id
     picks = db(db.picks.event_id==event).select() #selects all picks from given event
-    points_dict = {'Phil Mickelson': 125, 'Louis Oosthuizen': 75, 'Brooks Koepka': 75, 'Harry Higgs': 75, 'Paul Casey': 75,
-                    'Padraig Harrington': 75, 'Shane Lowry': 75, 'Rickie Fowler': 50, 'Tony Finau': 50, 'Justin Rose': 50,
-                    'Kevin Streelman': 50, 'Abraham Ancer': 50, 'Scottie Scheffler': 50, 'Jon Rahm': 50, 'Will Zalatoris': 50,
-                    'Collin Morikawa': 50, 'Aaron Wise': 25, 'Patrick Reed': 25, 'Sungjae Im': 25, 'Corey Conners': 25,
-                    'Charley Hoffman': 25, 'Keegan Bradley': 25, 'Hideki Matsuyama': 25, 'Billy Horschel': 25, 'Jason Scrivener': 25,
-                    'Martin Laird': 25, 'Matthew Fitzpatrick': 25, 'Patrick Cantlay': 25, 'Chan Kim': 25, 'Jordan Spieth': 15,
-                    'Joaquin Niemann': 15, 'Christiaan Bezuidenhout': 15, 'Viktor Hovland': 15, 'Webb Simpson': 15, 'Stewart Cink': 15,
-                    'Matt Jones': 15, 'Ian Poulter': 15, 'Branden Grace': 15, 'Emiliano Grillo': 15, 'Gary Woodland': 15,
-                    'Richy Werenski': 15, 'Bryson DeChambeau': 15, 'Tyrrell Hatton': 15, 'Daniel van Tonder': 15, 'Talor Gooch': 15,
-                    'Jason Day': 15, 'Steve Stricker': 15, 'Benjamin Cook': 15, 'Rory McIlroy': 15, 'Jason Kokrak': 15,
-                    'Sam Horsfield': 15, 'Robert MacIntyre': 15, 'Harold Varner III': 15, 'Byeong Hun An': 15, 'Joel Dahmen': 5,
-                    'Carlos Ortiz': 5, 'Matt Wallace': 5, 'Alex Noren': 5, 'Denny McCarthy': 5, 'Cameron Smith': 5, 'Dean Burmester': 5,
-                    'Robert Streb': 5, 'Cameron Davis': 5, 'Tom Hoge': 5, 'Harris English': 5, 'Jimmy Walker': 5, 'Danny Willett': 5,
-                    'Adam Hadwin': 5, 'Henrik Stenson': 5, 'Garrick Higgo': 5, 'Lee Westwood': 5, 'Russell Henley': 5, 'Tom Lewis': 5,
-                    'Lucas Herbert': 5, 'Daniel Berger': 5, 'Wyndham Clark': 5, 'Brendan Steele': 5, 'Brad Marek': 5, 'Rasmus Hojgaard': 5,
-                    'Bubba Watson': 5, 'Brian Gay': 5, 'Sergio Garcia': 0, 'Adam Scott': 0, 'Marc Leishman': 0, 'Brian Harman': 0,
-                    'Chez Reavie': 0, 'Dustin Johnson': 0, 'Justin Thomas': 0, 'Xander Schauffele': 0, 'Victor Perez': 0,
-                    'Antoine Rozner': 0, 'Mackenzie Hughes': 0, 'Andy Sullivan': 0, 'Peter Malnati': 0, 'Rich Beem': 0, 'Brendon Todd': 0,
-                    'Tommy Fleetwood': 0, 'Sebastian J Munoz': 0, 'Maverick McNealy': 0, 'Siwoo Kim': 0, 'Thomas Detry': 0,
-                    'Zach Johnson': 0, 'Ryan Palmer': 0, 'Martin Kaymer': 0, 'Jason Dufner': 0, 'Chris Kirk': 0, 'Dylan Frittelli': 0,
-                    'Cameron Tringale': 0, 'Lanto Griffin': 0, 'Daniel Balin': 0, 'Bernd Wiesberger': 0, 'Jim Herman': 0,
-                    'J.T. Poston': 0, 'Erik van Rooyen': 0, 'Hudson Swafford': 0, 'Greg Koch': 0, 'Matt Kuchar': 0, 'George Coetzee': 0,
-                    'Kalle Samooja': 0, 'Kevin Kisner': 0, 'Sami Valimaki': 0, 'Kurt Kitayama': 0, 'John Catlin': 0, 'Max Homa': 0,
-                    'Adam Long': 0, 'Brett Walker': 0, 'Charl Schwartzel': 0, 'K.H. Lee': 0, 'Pete Ballo': 0, 'Benjamin Polland': 0,
-                    'Mark Geddes': 0, 'Aaron Rai': 0, 'Tim Pearce': 0, 'Kevin Na': 0, 'Rob Labritz': 0, 'Brandon Hagy': 0,
-                    'Jazz Janewattananond': 0, 'Y.E. Yang': 0, 'Stuart Smith': 0, 'Cameron Champ': 0, 'Rikuya Hoshino': 0,
-                    'Thomas Pieters': 0, 'Shaun Micheel': 0, 'Alexander Beach': 0, 'Takumi Kanaya': 0, 'Brandon Stone': 0,
-                    'Patrick Rada': 0, 'Sonny Skinner': 0, 'Larkin Gross': 0, 'Omar Uresti': 0, 'Frank Bensel, Jr': 0, 'Joe Summerhays': 0,
-                    'Derek Holmes': 0, 'Tyler Collet': 0, 'John Daly': 0, 'Sam Burns': 0}
+    points_dict = {'Scottie Scheffler': 150, 'Rory McIlroy': 100, 'Shane Lowry': 90, 'Cameron Smith': 90, 'Collin Morikawa': 75, 'Will Zalatoris': 70, 'Corey Conners': 70,
+                    'Sungjae Im': 60, 'Justin Thomas': 60, 'Charl Schwartzel': 50, 'Cameron Champ': 50, 'Danny Willett': 25, 'Dustin Johnson': 25, 'Tommy Fleetwood': 25,
+                    'Jason Kokrak': 25, 'Lee Westwood': 25, 'Kevin Na': 25, 'Harry Higgs': 25, 'Min Woo Lee': 25, 'Hideki Matsuyama': 25, 'Matt Fitzpatrick': 25,
+                    'Talor Gooch': 25, 'J.J. Spaun': 25, 'Sergio Garcia': 25, 'Harold Varner III': 25, 'Robert MacIntyre': 25, 'Seamus Power': 15, 'Viktor Hovland': 15,
+                    'Jon Rahm': 15, 'Sepp Straka': 15, 'Russell Henley': 15, 'Hudson Swafford': 15, 'Lucas Glover': 15, 'Marc Leishman': 15, 'Tony Finau': 15,
+                    'Webb Simpson': 15, 'Patrick Reed': 15, 'Joaquin Niemann': 15, 'Patrick Cantlay': 15, 'Siwoo Kim': 15, 'Tom Hoge': 15, 'Bubba Watson': 15,
+                    'Billy Horschel': 15, 'Kevin Kisner': 15, 'Christiaan Bezuidenhout': 15, 'Cameron Davis': 15, 'Tiger Woods': 15, 'Adam Scott': 15, 'Max Homa': 15,
+                    'Daniel Berger': 15, 'Mackenzie Hughes': 15, 'Tyrrell Hatton': 5, 'Sam Burns': 0, 'Takumi Kanaya': 0, 'Zach Johnson': 0, 'Padraig Harrington': 0,
+                    'Brian Harman': 0, 'Kyoung-Hoon Lee': 0, 'Jordan Spieth': 0, 'Brooks Koepka': 0, 'Lucas Herbert': 0, 'Ryan Palmer': 0, 'Mike Weir': 0,
+                    'Abraham Ancer': 0, 'Xander Schauffele': 0, 'Keita Nakajima': 0, 'Stewart Cink': 0, 'Austin Greaser': 0, 'Guido Migliozzi': 0, 'Erik van Rooyen': 0,
+                    'Justin Rose': 0, 'Francesco Molinari': 0, 'Luke List': 0, 'Bernhard Langer': 0, 'Gary Woodland': 0, 'Fred Couples': 0, 'Cameron Young': 0,
+                    'Larry Mize': 0, 'Garrick Higgo': 0, 'James Piot': 0, 'Aaron Jarvis': 0, 'Bryson DeChambeau': 0, 'Sandy Lyle': 0, 'Vijay Singh': 0, 'Thomas Pieters': 0,
+                    'Matthew Wolff': 0, 'Stewart Hagestad': 0, 'Jose Maria Olazabal': 0, 'Laird Shepherd': 0, 'Louis Oosthuizen': 0}
     for player in picks:
         p1 = points_dict[player.one_name]
         p2 = points_dict[player.two_name]
@@ -154,7 +138,10 @@ def status():
         league_list = []
         rows = db(db.auth_membership.group_id==27).select()
         for x in rows:
-            league_list.append(x.user_id)
+            user = x.user_id
+            for row in db(db.auth_user.id==user).select():
+                if row.is_active == True:
+                    league_list.append(x.user_id)
 #---Finds all submitted picks and creates a list of their user_id's
         picks_list = []
         submitted_picks = db(db.picks.event_id==current_event_id).select()
