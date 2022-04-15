@@ -4,48 +4,28 @@
     <h2 class="headings">STANDINGS</h2>
 </div>
 <div class="container col-lg-4 col-md-7 col-10">
-<table class='table table-hover pga-table'>
-    <thead class="thead-dark">
-        <tr>
-            <th>Pos</th>
-            <th>Player</th>
-            <th>Total</th>
-        </tr>
-    </thead>
-    {{ for x in rows: }}
-        <tr>
-            {{ if x == rows[0]: }} <!--Checks to see if it's the first player-->
-                {{ if x.season_points > rows[n].season_points: }} <!--If the total points are equal to the next player a "T" is added to placement-->
-                <td>{{=place}}</td>
+    <div class="standings-form">
+        {{=form}}
+    </div>
+    <table class='table table-hover pga-table'>
+        <thead class="thead-dark">
+            <tr>
+                <th>Pos</th>
+                <th>Player</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        {{ for x in standings: }}
+            <tr>
+                <td>{{=x["place"]}}</td>
+                {{ if x["id"] == current.auth_user.id: }}
+                    <td class="current-user">{{=x["fname"]}} {{=x["lname"]}}</td>
                 {{ else: }}
-                <td>T{{=place}}</td>
+                    <td>{{=x["fname"]}} {{=x["lname"]}}</td>
                 {{ pass }}
-            {{ elif x == rows[((len(rows))-1)]: }} <!--Checks to see if it's the last player-->
-                {{ if x.season_points == rows[p].season_points: }} <!--If the total points are equal to the previous player no placement is needed-->
-                <td></td>
-                {{ else: }}
-                <td>{{=place}}</td>
-                {{ pass }}
-            {{ else: }} <!--Any other player is checked against previous and next place to assign placement-->
-                {{ if x.season_points == rows[p].season_points: }}
-                <td></td>
-                {{ elif x.season_points == rows[n].season_points: }}
-                <td>T{{=place}}</td>
-                {{ else: }}
-                <td>{{=place}}</td>
-                {{ pass }}
-            {{ pass }}
-            {{ if x.id == current.auth_user.id: }}
-                <td class="current-user">{{=x.first_name}} {{=x.last_name[0]}}</td>
-            {{ else: }}
-                <td>{{=x.first_name}} {{=x.last_name[0]}}</td>
-            {{ pass }}
-            <td>{{=x.season_points}}</td>
-            {{ n += 1 }}
-            {{ p += 1 }}
-            {{ place += 1 }}
-        </tr>
-    {{pass}}
-</table>
+                <td>{{=x["points"]}}</td>
+            </tr>
+        {{pass}}
+    </table>
 </div>
 <br>
